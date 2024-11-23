@@ -214,7 +214,7 @@
                     <p class="line-clamp-1">
                         <span>Already have an account? </span>
                         <a class="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
-                            href="pages-login-2.html">Sign In</a>
+                            href="{{ route('login') }}">Sign In</a>
                     </p>
                 </div>
             </div>
