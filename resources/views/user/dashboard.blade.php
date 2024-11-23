@@ -93,7 +93,7 @@
                         <div class="rounded-lg border border-slate-150 p-3 dark:border-navy-700">
                             <div class="flex justify-between">
                                 <p class="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                                    ${{ $total }}
+                                    $0
                                 </p>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="size-8 text-warning" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
