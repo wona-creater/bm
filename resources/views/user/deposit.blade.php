@@ -80,84 +80,98 @@
                             </h4>
                         </div>
                     </div>
-                    <div class="space-y-4 p-4 sm:p-5">
+                    @if(session('success'))
+                    <div class="alert alert-success">{{ session('success') }}</div>
+                @endif
 
-                        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-                            <label class="block">
-                                <span>Token Name</span>
-                                <input
-                                    class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                                    placeholder="Name" type="text" readonly />
-                            </label>
+                @if(session('error'))
+                    <div class="alert alert-danger">{{ session('error') }}</div>
+                @endif
 
-                            <div class="grid grid-cols-2 gap-4">
+                    <form action="{{ route('deposithis') }}" method="POST" >
+                        @csrf
+                        <div class="space-y-4 p-4 sm:p-5">
+
+                            @foreach ($tokens as $token)
+                                <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                    <label class="block">
+                                        <span>Token Name</span>
+                                        <input value="{{ $token->name }}"
+                                            class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                                            placeholder="Name" type="text" readonly name="name" />
+                                    </label>
+                                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+
+                                    <div class="grid grid-cols-2 gap-4">
+                                        <label class="block">
+                                            <span>Token Network</span>
+                                            <input value="{{ $token->network }}"
+                                                class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                                                placeholder="Network" type="text" readonly name="network" />
+                                        </label>
+                                        <x-input-error :messages="$errors->get('netwrok')" class="mt-2" />
+
+                                        <label class="block">
+                                            <span>Amount</span>
+                                            <input
+                                                class="form-input  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                                                placeholder="Amount" type="text" name="amount" />
+                                        </label>
+                                        <x-input-error :messages="$errors->get('amount')" class="mt-2" />
+
+                                    </div>
+                                </div>
+
                                 <label class="block">
-                                    <span>Token Network</span>
-                                    <input
-                                        class="form-input mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                                        placeholder="Network" type="text" readonly />
+                                    <span>Token Address</span>
+
+                                    <div x-data="{ addressText: '' }">
+                                        <div class="flex -space-x-px" x-data="{ addressText: '{{ $token->address }}' }">
+                                            <!-- Input field with rounded left corners -->
+                                            <input value="{{ $token->address }}" x-model="addressText"
+                                                class="form-input w-full rounded-l-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
+                                                placeholder="Address" type="text" name="address" readonly />
+
+                                            <!-- Copy button with rounded right corners -->
+                                            <button
+                                                @click="$clipboard({
+                                                    content: addressText,
+                                                    success: () => $notification({ text: 'Address Copied', variant: 'success' }),
+                                                    error: () => $notification({ text: 'Error Copying', variant: 'error' })
+                                                })"
+                                                class="btn rounded-l-none bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90 px-4 py-2">
+                                                Copy
+                                            </button>
+
+                                        </div>
+                                    </div>
                                 </label>
+                                <x-input-error :messages="$errors->get('image')" class="mt-2" />
 
-                                <label class="block">
-                                    <span>Amount</span>
-                                    <input
-                                        class="form-input  mt-1.5 w-full rounded-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:border-slate-400 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                                        placeholder="Amount" type="text" />
-                                </label>
-                            </div>
-                        </div>
-
-                        <label class="block">
-                            <span>Token Address</span>
-
-                            <div x-data="{ addressText: '' }">
-                                <div class="flex -space-x-px">
-                                    <!-- Input field with rounded left corners -->
-                                    <input
-                                        x-model="addressText"
-                                        class="form-input w-full rounded-l-lg border border-slate-300 bg-transparent px-3 py-2 placeholder:text-slate-400/70 hover:z-10 hover:border-slate-400 focus:z-10 focus:border-primary dark:border-navy-450 dark:hover:border-navy-400 dark:focus:border-accent"
-                                        placeholder="Address"
-                                        type="text"
-                                    />
-
-                                    <!-- Copy button with rounded right corners -->
-                                    <button
-                                        @click="$clipboard({
-                                            content: addressText,
-                                            success: () => $notification({ text: 'Address Copied', variant: 'success' }),
-                                            error: () => $notification({ text: 'Error Copying', variant: 'error' })
-                                        })"
-                                        class="btn rounded-l-none bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90 px-4 py-2"
-                                    >
-                                        Copy
-                                    </button>
+                            @endforeach
+                            <div>
+                                <span>Reciept "Images"</span>
+                                <div class="filepond fp-bordered fp-grid mt-1.5 [--fp-grid:2]">
+                                    <input type="file" name="image" x-init="$el._x_filepond = FilePond.create($el)" multiple />
                                 </div>
                             </div>
+                            <x-input-error :messages="$errors->get('image')" class="mt-2" />
 
+                            <div class="flex justify-center space-x-2 pt-4">
 
-
-
-                        </label>
-                        <div>
-                            <span>Reciept "Images"</span>
-                            <div class="filepond fp-bordered fp-grid mt-1.5 [--fp-grid:2]">
-                                <input type="file" x-init="$el._x_filepond = FilePond.create($el)" multiple />
+                                <button
+                                    class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
+                                    <span>Submit</span>
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </button>
                             </div>
                         </div>
-                        <div class="flex justify-center space-x-2 pt-4">
-
-                            <button
-                                class="btn space-x-2 bg-primary font-medium text-white hover:bg-primary-focus focus:bg-primary-focus active:bg-primary-focus/90 dark:bg-accent dark:hover:bg-accent-focus dark:focus:bg-accent-focus dark:active:bg-accent/90">
-                                <span>Submit</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
         </div>

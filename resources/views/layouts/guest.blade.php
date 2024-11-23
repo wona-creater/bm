@@ -62,7 +62,7 @@
             align-items: center;
             gap: 10px;
             border-left: 5px solid #4caf50;
-            animation: slideIn 0.5s ease-out, fadeOut 4s ease-in forwards;
+            animation: slideIn 1.5s ease-out, fadeOut 2s ease-in forwards;
         }
 
         /* Icon Style */

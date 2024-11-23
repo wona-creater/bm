@@ -167,7 +167,7 @@
                                     type="checkbox" />
                                 <span class="line-clamp-1">Remember me</span>
                             </label>
-                            <a href="#"
+                            <a href="{{ route('password.request') }}"
                                 class="text-xs text-slate-400 transition-colors line-clamp-1 hover:text-slate-800 focus:text-slate-800 dark:text-navy-300 dark:hover:text-navy-100 dark:focus:text-navy-100">Forgot
                                 Password?</a>
                         </div>
@@ -180,7 +180,7 @@
                                 <span>Dont have Account?</span>
 
                                 <a class="text-primary transition-colors hover:text-primary-focus dark:text-accent-light dark:hover:text-accent"
-                                    href="pages-singup-2.html">Create account</a>
+                                    href="{{ route('register') }}">Create account</a>
                             </p>
                         </div>
                         <div class="my-7 flex items-center space-x-3">

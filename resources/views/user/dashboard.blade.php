@@ -54,7 +54,7 @@
                         <div class="rounded-lg border border-slate-150 p-3 dark:border-navy-700">
                             <div class="flex justify-between space-x-1">
                                 <p class="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                                    $5,679
+                                    ${{ $user->balance }}
                                 </p>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="size-8 text-warning" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
@@ -67,7 +67,7 @@
                         <div class="rounded-lg border border-slate-150 p-3 dark:border-navy-700">
                             <div class="flex justify-between">
                                 <p class="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                                    $12.6k
+                                    ${{ $user->profit }}
                                 </p>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="size-8 text-warning" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
@@ -80,7 +80,7 @@
                         <div class="rounded-lg border border-slate-150 p-3 dark:border-navy-700">
                             <div class="flex justify-between">
                                 <p class="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                                    $10.3k
+                                    ${{ $user->bonus }}
                                 </p>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="size-8 text-warning" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
@@ -93,7 +93,7 @@
                         <div class="rounded-lg border border-slate-150 p-3 dark:border-navy-700">
                             <div class="flex justify-between">
                                 <p class="text-xl font-semibold text-slate-700 dark:text-navy-100">
-                                    651
+                                    ${{ $total }}
                                 </p>
                                 <svg xmlns="http://www.w3.org/2000/svg" class="size-8 text-warning" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
@@ -303,7 +303,7 @@
                             <!-- TradingView Widget BEGIN -->
                             <div class="tradingview-widget-container">
                                 <div class="tradingview-widget-container__widget"></div>
-                                
+
                                 <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
                                     {
                                         "symbol": "KRAKEN:BCHUSD",

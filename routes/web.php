@@ -28,7 +28,7 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/dashboard/deposit', [userController::class, 'deposit'])->name('deposit');
 
     // deposit history
-    Route::get('/dashboard/deposithistory', [userController::class, 'deposithistory'])->name('deposithis');
+    Route::post('/dashboard/deposithistory', [userController::class, 'deposithistory'])->name('deposithis');
 
     // withdrawal
     Route::get('/dashboard/withdrawal', [userController::class, 'withdrawal'])->name('withdraw');
